@@ -1,17 +1,20 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>测试工程</title>
+    <title>麻老弟大酒店</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!--引入css样式文件-->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="../layui/css/layui.css">
 
+    <!--引入我的css样式-->
+    <link rel="stylesheet" href="../myCss/myCss.css">
+
     <!--引入js样式-->
-    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
-    <script src="/js/jquery.js"></script>
-    <script src="../layui/layui.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../layui/layui.js"></script>
 </head>
 <body class="layui-bg-cyan">
 
@@ -20,7 +23,7 @@
         <ul class="layui-nav " lay-filter="">
             <li class="layui-nav-item" style="background: rgb(95, 184, 120)">
                 <a href="/">
-                    <img src="../img/malogo2.png" style="height: 60px; width: 95px">
+                    <img id="malogo" src="../img/malogo2.png">
                 </a>
             <li class="layui-nav-item"><a href="/">首页</a></li>
             <li class="layui-nav-item"><a href="">服务</a></li>
@@ -44,17 +47,19 @@
             <!--左侧 2栅格-->
             <div class="col-md-12 col-sm-12 col-lg-2 col-xs-12">
                     <!--侧方导航栏-->
-                    <span id="sideNav" style="position: absolute; left: 3px; top: 15px">
+                    <span id="sideNav""">
                         <ul class="layui-nav layui-nav-tree" lay-filter="test">
                             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
                             <li class="layui-nav-item layui-nav-itemed">
                                 <a href="javascript:;">
-                                    <p class="layui-icon layui-icon-read" style="color: rgb(95, 184, 120)">
+                                    <p id="jiudianfuwubanli" class="layui-icon layui-icon-read">
                                         &nbsp;&nbsp;酒店服务办理</p>
                                 </a>
                                 <dl class="layui-nav-child">
                                     <dd><a href="javascript:;">查看房间</a></dd>
+                                    <dd><a href="javascript:;">我的预约</a></dd>
                                     <dd><a href="javascript:;">酒店预约</a></dd>
+                                    <dd><a href="javascript:;">取消预约</a></dd>
                                     <dd><a href="">跳转</a></dd>
                                 </dl>
                             </li>
@@ -82,27 +87,42 @@
                     </span>
                 <div class="row">
                     <div>
-                        <img src="../img/house.png" style="margin: 15px; position: absolute; left:1px; top: 400px;height: 120px; width: 130px">
+                        <img id="maHouse" src="../img/house.png">
                     </div>
                 </div>
             </div>
             <!--右侧 10栅格-->
             <div class="col-md-12 col-sm-12 col-lg-10 col-xs-12" style="top: 17px;">
-                    <div id="hotel" style="background-color: #e2e2e2;height: 500px; width: 550px; width: 1000px">
-                        <span class="layui-btn layui-btn-radius layui-btn-normal" style="margin: 15px">101</span>
-                        <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-                            Popover on 左侧
-                        </button>
-                    </div>
+                <div id="hotel">
+                    <span class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+                        <button data-method="confirmTrans" class="layui-btn">配置一个透明的询问框</button>
+                    </span>
+
+                    <script>
+                        layui.use('layer', function(){ //独立版的layer无需执行这一句
+                            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+                            //触发事件
+                            var active = {
+                                confirmTrans: function(){
+                                    //配置一个透明的询问框
+                                    layer.msg('怎么样传数据过来啊~~', {
+                                        time: 20000, //20s后自动关闭
+                                        btn: ['预约', '知道了', '更多']
+                                    });
+                                }
+                            };
+                            $('#layerDemo .layui-btn').on('click', function(){
+                                var othis = $(this), method = othis.data('method');
+                                active[method] ? active[method].call(this, othis) : '';
+                            });
+                        });
+                    </script>
+
+                </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
 
 </body>
 </html>

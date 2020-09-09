@@ -1,0 +1,43 @@
+/*
+首页左上角麻老弟logo
+*/
+#malogo{
+    height: 60px;
+    width: 95px
+}
+
+/**
+麻老弟房子的icon图片
+ */
+#maHouse{
+    margin: 15px;
+    position: absolute;
+    left:1px;
+    top: 400px;
+    height: 120px;
+    width: 130px
+}
+
+/*酒店服务办理icon*/
+#jiudianfuwubanli{
+    color: rgb(95, 184, 120)
+}
+
+/**
+侧方导航栏
+ */
+#sideNav{
+    position: absolute;
+    left: 3px;
+    top: 15px
+}
+
+/**
+中间灰色的大区块
+ */
+#hotel{
+    background-color: #e2e2e2;
+    height: 500px;
+    width: 550px;
+    width: 1000px
+}
