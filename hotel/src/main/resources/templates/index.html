@@ -12,11 +12,12 @@
     <link rel="stylesheet" href="../myCss/myCss.css">
 
     <!--引入js样式-->
+    <script src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.js"></script>
     <script type="text/javascript" src="../layui/layui.js"></script>
 </head>
 <body class="layui-bg-cyan">
+
 
     <!--顶部导航栏-->
     <div>
@@ -47,7 +48,7 @@
             <!--左侧 2栅格-->
             <div class="col-md-12 col-sm-12 col-lg-2 col-xs-12">
                     <!--侧方导航栏-->
-                    <span id="sideNav""">
+                    <span id="sideNav">
                         <ul class="layui-nav layui-nav-tree" lay-filter="test">
                             <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
                             <li class="layui-nav-item layui-nav-itemed">
@@ -93,31 +94,36 @@
             </div>
             <!--右侧 10栅格-->
             <div class="col-md-12 col-sm-12 col-lg-10 col-xs-12" style="top: 17px;">
-                <div id="hotel">
-                    <span class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-                        <button data-method="confirmTrans" class="layui-btn">配置一个透明的询问框</button>
-                    </span>
+                <div id="hotel" >
+                    <h2 style="text-align: center; margin-top: 30px;">麻老弟大酒店</h2>
+                    <hr style="width: 300px; margin-left: 350px">
+                    <div id="allBtn" style="margin-top: 25px; margin-left: 35px;">
+                        <!--主页房间按钮-->
+                        <span th:each="room: ${roomList}">
+                            <div class="btn-group">
+                                <button id="roomBtn" class="layui-btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false" th:text="${room.roomName}">
+                                    <!--<span class="caret"></span>-->
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="">
+                                      <p style="color: #007DDB">预定</p>
+                                  </a></li>
+                                  <li><a href="" th:text="${room.roomName}"></a></li>
+                                  <li><a href="">更多</a></li>
+                                </ul>
+                            </div>
+                        </span>
+                    </div>
 
-                    <script>
-                        layui.use('layer', function(){ //独立版的layer无需执行这一句
-                            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+                    <!--<span class="site-demo-button" >-->
+                            <!--<button data-method="confirmTrans" class="layui-btn" th:object="${room}">-->
+                                <!--<p th:text="${room.roomName}"></p>-->
+                            <!--</button>-->
+                        <!--</span>-->
 
-                            //触发事件
-                            var active = {
-                                confirmTrans: function(){
-                                    //配置一个透明的询问框
-                                    layer.msg('怎么样传数据过来啊~~', {
-                                        time: 20000, //20s后自动关闭
-                                        btn: ['预约', '知道了', '更多']
-                                    });
-                                }
-                            };
-                            $('#layerDemo .layui-btn').on('click', function(){
-                                var othis = $(this), method = othis.data('method');
-                                active[method] ? active[method].call(this, othis) : '';
-                            });
-                        });
-                    </script>
+                    <!--主页房间按钮代码-->
+                    <script src="../myJs/room.js"></script>
 
                 </div>
             </div>

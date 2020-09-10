@@ -33,11 +33,19 @@
 }
 
 /**
-中间灰色的大区块
+中间的大区块
  */
 #hotel{
-    background-color: #e2e2e2;
+    position: absolute;
+    left: 10px;
+    background-color: #5882742e;
     height: 500px;
-    width: 550px;
     width: 1000px
+}
+
+/**
+首页的房间按钮
+ */
+#roomBtn{
+    margin-top: 6px;
 }
