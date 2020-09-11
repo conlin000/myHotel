@@ -50,7 +50,7 @@
                     <!--侧方导航栏-->
                     <span id="sideNav">
                         <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                            <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+                            <!-- 侧边导航 -->
                             <li class="layui-nav-item layui-nav-itemed">
                                 <a href="javascript:;">
                                     <p id="jiudianfuwubanli" class="layui-icon layui-icon-read">
@@ -87,8 +87,9 @@
                         </ul>
                     </span>
                 <div class="row">
+                    <!--麻老弟房子logo-->
                     <div>
-                        <img id="maHouse" src="../img/house.png">
+                        <img id="maHouse" src="../img/house.png" style="z-index: -1">
                     </div>
                 </div>
             </div>
@@ -101,10 +102,10 @@
                         <!--主页房间按钮-->
                         <span th:each="room: ${roomList}">
                             <div class="btn-group">
-                                <button id="roomBtn" class="layui-btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false" th:text="${room.roomName}">
+                                <button id="roomBtn" class="layui-btn btn-sm" type="button" data-toggle="dropdown"
+                                         th:text="${room.roomName}"></button>
+                                    <!--button 无用属性：aria-haspopup="true" aria-expanded="false"-->
                                     <!--<span class="caret"></span>-->
-                                </button>
                                 <ul class="dropdown-menu">
                                   <li><a href="">
                                       <p style="color: #007DDB">预定</p>
@@ -115,15 +116,10 @@
                             </div>
                         </span>
                     </div>
-
-                    <!--<span class="site-demo-button" >-->
-                            <!--<button data-method="confirmTrans" class="layui-btn" th:object="${room}">-->
-                                <!--<p th:text="${room.roomName}"></p>-->
-                            <!--</button>-->
-                        <!--</span>-->
-
+                    <br>
+                    <button type="button" id="my">我的</button>
                     <!--主页房间按钮代码-->
-                    <script src="../myJs/room.js"></script>
+                    <script src="../myJs/room.js" th:inline="javascript"></script>
 
                 </div>
             </div>
