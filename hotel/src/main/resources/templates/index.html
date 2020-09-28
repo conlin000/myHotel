@@ -16,7 +16,7 @@
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../layui/layui.js"></script>
 </head>
-<body class="layui-bg-cyan">
+<body class="layui-bg-cyan" th:inline="text">
 
 
     <!--顶部导航栏-->
@@ -65,19 +65,19 @@
                                 </dl>
                             </li>
                             <li class="layui-nav-item">
+                                <a href="">
+                                    <p class="layui-icon layui-icon-rmb" style="color: #FFB800">&nbsp;&nbsp;酒店价格介绍</p>
+                                </a>
+                            </li>
+                            <li class="layui-nav-item">
                                 <a href="javascript:;">
-                                    <p class="layui-icon layui-icon-dollar" style="color: #FF5722">&nbsp;&nbsp;VIP服务</p>
+                                    <p class="layui-icon layui-icon-diamond" style="color: #FF5722">&nbsp;&nbsp;VIP服务</p>
                                 </a>
                                 <dl class="layui-nav-child">
                                     <dd><a href=""><p style="color: #FF5722">加入VIP</p></a></dd>
                                     <dd><a href="">VIP服务</a></dd>
                                     <dd><a href="">xxx</a></dd>
                                 </dl>
-                            </li>
-                            <li class="layui-nav-item">
-                                <a href="">
-                                    <p style="color: rgb(95, 184, 120)">产品</p>
-                                </a>
                             </li>
                             <li class="layui-nav-item">
                                 <a href="">
@@ -99,25 +99,31 @@
                     <h2 style="text-align: center; margin-top: 30px;">麻老弟大酒店</h2>
                     <hr style="width: 300px; margin-left: 350px">
                     <div id="allBtn" style="margin-top: 25px; margin-left: 35px;">
-                        <!--主页房间按钮-->
+                        <!--主页房间按钮循环-->
                         <span th:each="room: ${roomList}">
-                            <div class="btn-group">
-                                <button id="roomBtn" class="layui-btn btn-sm" type="button" data-toggle="dropdown"
-                                         th:text="${room.roomName}"></button>
-                                    <!--button 无用属性：aria-haspopup="true" aria-expanded="false"-->
-                                    <!--<span class="caret"></span>-->
-                                <ul class="dropdown-menu">
-                                  <li><a href="">
-                                      <p style="color: #007DDB">预定</p>
-                                  </a></li>
-                                  <li><a href="" th:text="${room.roomName}"></a></li>
-                                  <li><a href="">更多</a></li>
-                                </ul>
-                            </div>
+                            <span th:if="${room.roomId} &gt; 0">
+                                <div th:id="|div${room.roomId}|" class="btn-group" data-toggle="tooltip" data-placement="top" th:title="|${room.roomLevel}-${room.roomType}|">
+                                    <!--主页按钮-->
+                                    <button th:id="|roomBtn${room.roomId}|" class="roomBtn dropdown-toggle layui-btn btn-sm" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false" th:text="${room.roomName}" ></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="" th:text="|${room.roomLevel}-${room.roomType}|"></a></li>
+                                        <li><a href="/userMsg"><p style="color: #007DDB; font-weight: bolder">预&nbsp;&nbsp;&nbsp;&nbsp;约</p></a></li>
+                                      <li><a href="">
+                                          <p style="color: #FFB800;">房间价格介绍</p>
+                                      </a></li>
+                                    </ul>
+                                </div>
+                                <!--提示根据函数-->
+                                <script th:inline="javascript">
+                                    $(function () {
+                                        $('[data-toggle="tooltip"]').tooltip();
+                                    })
+                                </script>
+                            </span>
                         </span>
                     </div>
                     <br>
-                    <button type="button" id="my">我的</button>
                     <!--主页房间按钮代码-->
                     <script src="../myJs/room.js" th:inline="javascript"></script>
 

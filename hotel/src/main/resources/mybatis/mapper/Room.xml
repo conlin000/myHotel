@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.conlin.hotel.dao.RoomDao">
+    <select id="rooms" resultType="com.conlin.hotel.dto.RoomDTO">
+        select
+          r.room_id   as roomId,
+          r.room_name as roomName,
+          r.room_content as roomContent,
+          rl.level_name as roomLevel,
+          rt.type_name  as roomType,
+          r.room_status as roomStatus,
+          r.is_used     as isUsed,
+          r.version     as version
+        from
+          t_room as r
+          left join
+            t_room_level as rl
+           on
+            r.room_level = rl.room_level
+          left join
+            t_room_type as rt
+          on
+            r.room_type = rt.room_type
+    </select>
+</mapper>

@@ -12,6 +12,10 @@ public class CreateHotel {
     @Resource
     private HotelDao hotelDao;
 
+    /**
+     * 创建酒店
+     */
+
     @RequestMapping("/createHotel")
     public void createHotel(){
         Room room = new Room();

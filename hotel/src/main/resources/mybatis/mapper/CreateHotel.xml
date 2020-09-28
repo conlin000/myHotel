@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.conlin.hotel.createHotel.HotelDao">
+    <insert id="hotel">
+        insert into t_room(
+            room_id,
+            room_name,
+            floor,
+            room_num,
+            room_content,
+            room_level,
+            room_type,
+            room_status,
+            is_used,
+            is_deleted,
+            gmt_create,
+            gmt_modified,
+            version
+        ) values (
+            #{roomId},
+            #{roomName},
+            #{floor},
+            #{roomNum},
+            #{roomContent},
+            #{roomLevel},
+            #{roomType},
+            #{roomStatus},
+            #{isUsed},
+            #{isDeleted},
+            #{gmtCreate},
+            #{gmtModified},
+            #{version}
+        )
+    </insert>
+</mapper>
