@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.conlin.hotel.dao.RoomDao">
+
+    <!--主页房间列表查询-->
     <select id="rooms" resultType="com.conlin.hotel.dto.RoomDTO">
         select
           r.room_id   as roomId,
@@ -22,4 +24,35 @@
           on
             r.room_type = rt.room_type
     </select>
+
+    <!--被预定房间的信息查询-->
+    <select id="getRoom" resultType="com.conlin.hotel.dto.RoomDTO">
+        select
+          r.room_id   as roomId,
+          r.room_name as roomName,
+          rl.level_name as roomLevel,
+          rl.deposit  as deposit,
+          rt.type_name  as roomType,
+          r.version     as version
+        from
+          t_room as r
+          left join
+            t_room_level as rl
+           on
+            r.room_level = rl.room_level
+          left join
+            t_room_type as rt
+          on
+            r.room_type = rt.room_type
+        where
+          r.room_id = #{id}
+    </select>
+
+    <!--预约房间==更新-->
+    <update id="bookRoom">
+        update t_room
+        set
+          user_id  = #{userId},
+
+    </update>
 </mapper>

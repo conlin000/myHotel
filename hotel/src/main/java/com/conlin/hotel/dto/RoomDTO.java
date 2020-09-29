@@ -22,6 +22,8 @@ public class RoomDTO {
     private int roomStatus;
     // 被使用标志：0-被使用；1-未被使用
     private int isUsed;
+    // 定金
+    private float deposit;
     // 版本号
     private int version;
 }

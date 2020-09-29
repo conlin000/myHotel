@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.conlin.hotel.dao.UserDao">
+    <!--普通用户-->
+    <insert id="insertUser">
+        insert into t_user(
+            user_id,
+            room_id,
+            order_id,
+            user_name,
+            sex,
+            phone,
+            id_card,
+            `level`,
+            service_code,
+            user_status,
+            book_time,
+            end_time,
+            is_deleted,
+            gmt_create,
+            gmt_modified,
+            version
+        ) values (
+            #{userId},
+            #{roomId},
+            #{orderId},
+            #{userName},
+            #{sex},
+            #{phone},
+            #{idCard},
+            1,
+            #{serviceCode},
+            1,
+            #{bookTime},
+            #{endTime},
+            0,
+            now(),
+            now(),
+            0
+        )
+    </insert>
+    
+</mapper>

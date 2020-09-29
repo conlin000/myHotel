@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>麻老弟大酒店</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!--引入js样式-->
+    <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../layui/layui.js"></script>
+
+    <!--引入css样式文件-->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+
+    <!--引入template插件-->
+    <script src="/js/template.js"></script>
+
+    <!--“定金”和“服务码”样式文件-->
+    <link rel="stylesheet" href="../myCss/Deposit&ServiceCode.css">
+
+
+</head>
+<body class="layui-bg-cyan" th:inline="text">
+<!--// 栅格布局-->
+<div class="container-fluid">
+    <div class="row">
+        <!--左侧 2栅格-->
+        <div class="col-md-2 col-sm-12 col-lg-2 col-xs-12">
+
+            <!--麻老弟房子logo-->
+            <div>
+                <span style="position: static;">
+                    <a href="/" style="">
+                        <img id="maHouse" src="../img/house.png" style="height: 180px; width: 200px; margin-top: 80%; margin-left: 10%"><br>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span style="font-weight: bolder; color: #8c939d; font-size: 30px; margin-left: 10%" class="layui-icon layui-icon-return">&nbsp;&nbsp;主页</span>
+                    </a>
+                </span>
+            </div><!--麻老弟房子logo-->
+        </div><!--左侧 2栅格-->
+
+        <!--中间8栅格-->
+        <div class="col-md-8 col-sm-12 col-lg-8 col-xs-12">
+            <!--支付定金-->
+            <div id="payDeposit" class="modal-dialog" role="document" style="z-index: 1">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h2 style="color: #0f0f0f">请支付定金</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div id="do-deposit">
+                            <script id="templ" type="text/html">
+                                <div class="word">房间：<%=room%></div>
+                                <div class="word">定金：<%=deposit%></div>
+                            </script>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="pay" type="button" class="btn btn-primary">确认支付</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+
+
+            <!--服务码-->
+            <div id="serviceCodeDiv">
+                <div style="background-color: white">
+                    <h2 class="word" id="serviceCodeTitle">提交成功</h2><hr><br>
+                    <p class="word">服务码：</p>
+                    <span id="serviceCode" class="word"></span>
+                    <div class="word">请保存好您“服务码”。如果遗忘“服务码”可以在<u>【主页】--【我的预约】</u>查询。</div>
+                </div>
+            </div> <!--服务码-->
+        </div><!--中间8栅格End-->
+
+        <!--右侧2栅格-->
+        <div class="col-md-2 col-sm-12 col-lg-2 col-xs-12">
+            <div style="height: 10px; background-color: gold"></div>
+        </div><!--右侧2栅格-->
+    </div>
+</div>
+<!--模板代码-->
+<script>
+    let json = sessionStorage.getItem("userMsg");
+    let usgMsg = JSON.parse(json);
+    $("#do-deposit").html(template($("#templ").html(),{room:usgMsg.room, deposit:usgMsg.deposit}));
+
+    <!--“支付”代码-->
+    $("#pay").click(function () {
+        let url = "/serviceCode/"+[[${roomId}]];
+        $.ajax({
+           type:"POST",
+           url:url,
+           data:usgMsg,
+           success:function (data) {
+               console.log(data);
+               $("#serviceCode").html(data);
+           }
+        });
+        $("#payDeposit").css("display","none");
+        $("#serviceCodeDiv").css("display","block");
+    });
+</script>
+
+
+</body>
+
+
+
+</html>

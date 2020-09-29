@@ -6,72 +6,209 @@
 
     <!--引入js样式-->
     <script src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script type="text/javascript" src="../layui/layui.js"></script>
 
     <!--引入css样式文件-->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="../layui/css/layui.css">
 
     <!--引入我的css样式-->
-    <link rel="stylesheet" href="../myCss/myCss.css">
+    <!--<link rel="stylesheet" href="../myCss/myCss.css">-->
+    <!--“用户信息确认”弹窗样式-->
+    <link rel="stylesheet" href="../myCss/confirmUserMsg.css">
+
+    <!--引入template插件-->
+    <script src="/js/template.js"></script>
+
+
 
 </head>
 <body class="layui-bg-cyan" th:inline="text">
-
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-
-                <h2 style="color: #009688; font-weight: bolder">请填写以下信息：</h2>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="userName" style="color: #0f0f0f">姓名</label>
-                        <input type="text" class="form-control" style="width: 80%" id="userName" placeholder="请填写姓名">
-                    </div>
-
-                    <div class="form-group" >
-                        <label for="phone" style="color: #0f0f0f">手机号</label>
-                        <input type="tel" class="form-control" style="width: 80%" id="phone" placeholder="请填写手机号">
-                    </div>
-
-                    <div class="form-group" >
-                        <label for="phone" style="color: #0f0f0f">身份证</label>
-                        <input type="tel" class="form-control" style="width: 80%" id="idCard" placeholder="请填写身份证">
-                    </div>
-
-                    <div class="form-group">
-                        <label style="color: #0f0f0f">性别</label><br>
-                        <span style="color: #0f0f0f">
-                            <input type="radio" name="sex" value="1">男♂&nbsp;&nbsp;
-                            <input type="radio" name="sex" value="0"  checked>女♀&nbsp;&nbsp;
-                            <input type="radio" name="sex"  disabled>未知?
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label style="color: #0f0f0f">备注</label>
-                        <input type="text" class="form-control" style="width: 80%" id="comment" placeholder="备注">
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                <button type="button" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal">马上预约</button>
-            </div>
+<!--// 栅格布局-->
+<div class="container-fluid">
+    <div class="row">
+        <!--左侧 2栅格-->
+        <div class="col-md-2 col-sm-12 col-lg-2 col-xs-12">
 
             <!--麻老弟房子logo-->
             <div>
-                <img id="maHouse" src="../img/house.png" style="z-inde: 99999;">
+                <span style="position: static;">
+                    <a href="/" style="">
+                        <img id="maHouse" src="../img/house.png" style="height: 180px; width: 200px; margin-top: 80%; margin-left: 10%"><br>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span style="font-weight: bolder; color: #8c939d; font-size: 30px; margin-left: 10%" class="layui-icon layui-icon-return">&nbsp;&nbsp;主页</span>
+                    </a>
+                </span>
             </div>
 
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+
+        <!--中间8栅格-->
+        <div class="col-md-8 col-sm-12 col-lg-8 col-xs-12">
+            <!--用户信息确认框-->
+            <div class="zhezhao" id='zhezhao'>
+                <div class="tankuang">
+                    <div id="header">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h2  style="color: #0f0f0f;">请确认您的信息：</h2>
+                            </div>
+                        </div>
+                        <div id="header-right" onclick="hidder()">x</div>
+                    </div>
+
+                    <div class="panel-body" id="confirmMsg" style="color: #0f0f0f; padding-top: 5%; padding-left: 5%">
+
+
+                    </div>
+                    <div class="panel panel-footer">
+                        <button type="button" class="layui-btn layui-btn-radius layui-btn-normal" th:onclick="doBook([[${room}]])">确认预约</button>
+                        <button type="button" class="layui-btn layui-btn-radius layui-btn-primary" onclick="hidder()">修改 / 取消</button>
+                    </div>
+                </div>
+
+            </div>
+            <!--用户信息确认框内容模板-->
+            <script type="text/html" id="confirmMsgTempl">
+                <div>姓&nbsp;&nbsp;&nbsp;&nbsp;名： <%=userName%></div>
+                <div>手机号： <%=phone%></div>
+                <div>身份证： <%=idCard%></div>
+                <div>性&nbsp;&nbsp;&nbsp;&nbsp;别： <%=sex%></div>
+                <div>房&nbsp;&nbsp;&nbsp;&nbsp;间： <%=room%></div>
+                <div>预约时间： <%=bookOn%> 到 <%=bookEnd%></div>
+                <div>备&nbsp;&nbsp;&nbsp;&nbsp;注： <%=comment%></div>
+            </script>
+            <!--用户信息确认框代码-->
+            <script type="text/javascript" src="../myJs/confirmUserMsg.js" th:inline="javascript"></script>
+
+            <!--用户信息填写-->
+            <div class="modal-dialog" style="z-index: 0;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 style="color: #009688; font-weight: bolder">请填写以下信息：</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <!--姓名-->
+                            <div class="form-group">
+                                <label for="userName" style="color: #0f0f0f">姓名</label>
+                                <input type="text" class="form-control" style="width: 80%" id="userName" placeholder="请填写姓名">
+                            </div>
+                            <!--手机号-->
+                            <div class="form-group" >
+                                <label for="phone" style="color: #0f0f0f">手机号</label>
+                                <input type="tel" class="form-control" style="width: 80%" id="phone" placeholder="请填写手机号">
+                            </div>
+                            <!--身份证-->
+                            <div class="form-group" >
+                                <label for="phone" style="color: #0f0f0f">身份证</label>
+                                <input type="tel" class="form-control" style="width: 80%" id="idCard" placeholder="请填写身份证">
+                            </div>
+                            <!--性别-->
+                            <div class="form-group">
+                                <label style="color: #0f0f0f">性别</label><br>
+                                <select class="form-control" style="width: 80%" id="sex">
+                                    <option value="1">&nbsp;男</option>
+                                    <option value="0">&nbsp;女</option>
+                                    <option value="" disabled>&nbsp;未知?</option>
+                                </select>
+                            </div>
+                            <!--房间-->
+                            <div class="form-group">
+                                <label style="color: #0f0f0f">房间</label><br>
+                                <input class="form-control" style="width: 80%" disabled id="room"
+                                       th:value="|${room.roomName}  /  ${room.roomLevel}${room.roomType}|">
+                            </div>
+
+                            <!--预约时间起-->
+                            <div class="row">
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <label style="color: #0C0C0C">选择开始时间：</label>
+                                        <!--指定 date标记-->
+                                        <div class='input-group date'>
+                                            <input id='bookOn' type='date' class="form-control" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <label style="color: #0C0C0C">选择时间段：</label>
+                                        <select id="bookOn-time" class="form-control">
+                                            <script>
+                                                var time = [];
+                                                for (var i = 0; i < 24; i++) {
+                                                    var value = i+":00";
+                                                    time[i] = "<option value='"+value+"'>"+"  "+value+"</option>";
+                                                }
+                                                $("#bookOn-time").html(time);
+                                            </script>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--预约时间止-->
+                            <div class="row">
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <label style="color: #0C0C0C">选择开始时间：</label>
+                                        <!--指定 date标记-->
+                                        <div class='input-group date' >
+                                            <input id='bookEnd' type='date' class="form-control" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <label style="color: #0C0C0C">选择时间段：</label>
+                                        <select id="bookEnd-time" class="form-control">
+                                            <script>
+                                                var time = [];
+                                                for (var i = 0; i < 24; i++) {
+                                                    var value = i+":00";
+                                                    time[i] = "<option value='"+value+"'>"+"  "+value+"</option>";
+                                                }
+                                                $("#bookEnd-time").html(time);
+                                            </script>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--备注-->
+                            <div class="form-group">
+                                <label style="color: #0f0f0f">备注</label><br>
+                                <textarea class="form-control" style="width: 80%" id="comment" placeholder="备注"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <!--马上预约-->
+                    <div class="modal-footer">
+                        <button type="button" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal" onclick="confirm()">马上预约</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
+        <!--右侧2栅格-->
+        <div class="col-md-2 col-sm-12 col-lg-2 col-xs-12">
+            <div style="height: 10px; background-color: gold"></div>
+        </div>
+    </div>
+</div>
+
+
+
 </body>
+
 
 
 </html>

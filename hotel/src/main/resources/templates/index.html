@@ -28,7 +28,7 @@
                 </a>
             <li class="layui-nav-item"><a href="/">首页</a></li>
             <li class="layui-nav-item"><a href="">服务</a></li>
-            <li class="layui-nav-item"><a href="">酒店介绍</a></li>
+            <li class="layui-nav-item"><a href=""  data-toggle="modal" data-target="#myModal">酒店介绍</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;">xxx</a>
                 <dl class="layui-nav-child"> <!-- 二级菜单 -->
@@ -92,6 +92,28 @@
                         <img id="maHouse" src="../img/house.png" style="z-index: -1">
                     </div>
                 </div>
+
+
+                <!-- 酒店介绍弹框 -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel" style="color: #2F4056; font-weight: bolder; font-size: 30px ">麻老弟大酒店介绍</h4>
+                            </div>
+                            <div class="modal-body" style="color: #0f0f0f">
+                                快来啊，快来啊！
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="layui-btn layui-btn-radius layui-btn-primary" data-dismiss="modal">关闭</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
             </div>
             <!--右侧 10栅格-->
             <div class="col-md-12 col-sm-12 col-lg-10 col-xs-12" style="top: 17px;">
@@ -108,7 +130,7 @@
                                             aria-haspopup="true" aria-expanded="false" th:text="${room.roomName}" ></button>
                                     <ul class="dropdown-menu">
                                       <li><a href="" th:text="|${room.roomLevel}-${room.roomType}|"></a></li>
-                                        <li><a href="/userMsg"><p style="color: #007DDB; font-weight: bolder">预&nbsp;&nbsp;&nbsp;&nbsp;约</p></a></li>
+                                        <li><a th:href="@{'/userMsg/'+${room.roomId}}"><p style="color: #007DDB; font-weight: bolder">预&nbsp;&nbsp;&nbsp;&nbsp;约</p></a></li>
                                       <li><a href="">
                                           <p style="color: #FFB800;">房间价格介绍</p>
                                       </a></li>
