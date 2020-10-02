@@ -1,0 +1,24 @@
+#login{
+    margin-top: 2%;
+    margin-left: 20%;
+}
+#loginSpan{
+    height: 300px;
+    width: 250px;
+    background-color: #00F7DE;
+}
+
+.form-control{
+    width: 40%;
+}
+
+.control-label{
+    font-size: 15px;
+}
+
+.alert{
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    display: none;
+}

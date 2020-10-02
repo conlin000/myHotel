@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.conlin.login.UserDao">
+
+    <select id="login" resultType="com.conlin.login.User">
+        select
+          account  as account,
+          pwd      as pwd,
+          role     as role,
+          `name`     as name
+        from
+          t_manager
+        where
+          account = #{acct}
+          and pwd = #{pwd}
+    </select>
+
+</mapper>

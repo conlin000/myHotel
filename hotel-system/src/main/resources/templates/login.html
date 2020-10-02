@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>麻老弟大酒店管理系统</title>
+
+    <!--引入bootstrap css样式文件-->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.css">
+    <!--引入layui css样式文件-->
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../layui/css/layui.mobile.css">
+
+    <!---->
+    <script type="text/javascript" src="../js/bootstrap.js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="../js/npm.js"></script>-->
+    <!--<script type="text/javascript" src="../js/layui.js"></script>-->
+    <!--<script type="text/javascript" src="../js/layui.all.js"></script>-->
+    <script type="text/javascript" src="../js/template.js"></script>
+
+    <!---->
+    <link rel="stylesheet" href="../myCss/login.css">
+
+</head>
+<body th:inline="text">
+<div class="alert alert-success" role="alert" id="success">√&nbsp;&nbsp;登录成功</div>
+<div class="alert alert-danger" role="alert" id="error">×&nbsp;&nbsp;密码错误或其他清况</div>
+<img src="../img/house.png" height="155" width="210" style="z-index: -1"/>
+<span id="loginSpan">
+    <h2 style="align-content: center">麻老弟大酒店</h2>
+    <form class="form-horizontal" id="login" >
+        <div class="form-group">
+            <label for="acctount" class="col-sm-2 control-label">账号：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="acctount" placeholder="账号">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pwd" class="col-sm-2 control-label">密码：</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="pwd" placeholder="密码">
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="login-go" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal" style="width: 40%">登录</button>
+            </div>
+        </div>
+    </form>
+</span>
+
+<script>
+    $(function () {
+        $("#login-go").click(function () {
+            $.ajax({
+                type:"POST",
+                url: "/login",
+                data:{
+                    'acct':$("#acctount").val(),
+                    'pwd':$("#pwd").val()
+                },
+                success:function (data) {
+                    console.log(data);
+                    if (data.code == 0){
+                        $("#success").css('display','block');
+                        setTimeout(function () {
+                            $("#success").css('display','none');
+                        },2000);
+                    }else{
+                        $("#error").css('display','block');
+                        setTimeout(function () {
+                            $("#error").css('display','none');
+                        },2000);
+                    }
+                    
+                }
+            })
+        });
+    })
+</script>
+
+</body>
+</html>
