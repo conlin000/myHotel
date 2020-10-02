@@ -2,6 +2,7 @@ package com.conlin.hotel.controller;
 
 import com.conlin.hotel.dto.UserMsg;
 import com.conlin.hotel.service.OrderService;
+import com.conlin.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,12 +44,12 @@ public class DespositAndServiceCode {
     public String serviceCode(@PathVariable("roomId")int roomId,UserMsg userMsg){
 
         System.out.println("=================== Post:支付"+roomId+"定金");
-        System.out.println(userMsg.getRoomName());
         // 配置roomId
         userMsg.setRoomId(roomId);
         // 预约房间
         String serviceCode =  orderService.doBook(userMsg);
 
+//        String serviceCode = StringUtil.getCharAndNum(8);
         return serviceCode;
     }
 }

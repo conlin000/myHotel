@@ -35,7 +35,7 @@
             <!--麻老弟房子logo-->
             <div>
                 <span style="position: static;">
-                    <a href="/" style="">
+                    <a href="/ma-hotel" style="">
                         <img id="maHouse" src="../img/house.png" style="height: 180px; width: 200px; margin-top: 80%; margin-left: 10%"><br>&nbsp;&nbsp;&nbsp;&nbsp;
                         <span style="font-weight: bolder; color: #8c939d; font-size: 30px; margin-left: 10%" class="layui-icon layui-icon-return">&nbsp;&nbsp;主页</span>
                     </a>
@@ -82,42 +82,19 @@
             <!--用户信息确认框代码-->
             <script type="text/javascript" src="../myJs/confirmUserMsg.js" th:inline="javascript"></script>
 
-            <!--用户信息填写-->
-            <div class="modal-dialog" style="z-index: 0;">
+            <!--选择预约时间-->
+            <!--用户信息填写表单-->
+            <div class="modal-dialog" style="z-index: 0;" id="userMsgForm">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 style="color: #009688; font-weight: bolder">请填写以下信息：</h2>
                     </div>
                     <div class="modal-body">
                         <form>
-                            <!--姓名-->
-                            <div class="form-group">
-                                <label for="userName" style="color: #0f0f0f">姓名</label>
-                                <input type="text" class="form-control" style="width: 80%" id="userName" placeholder="请填写姓名">
-                            </div>
-                            <!--手机号-->
-                            <div class="form-group" >
-                                <label for="phone" style="color: #0f0f0f">手机号</label>
-                                <input type="tel" class="form-control" style="width: 80%" id="phone" placeholder="请填写手机号">
-                            </div>
-                            <!--身份证-->
-                            <div class="form-group" >
-                                <label for="phone" style="color: #0f0f0f">身份证</label>
-                                <input type="tel" class="form-control" style="width: 80%" id="idCard" placeholder="请填写身份证">
-                            </div>
-                            <!--性别-->
-                            <div class="form-group">
-                                <label style="color: #0f0f0f">性别</label><br>
-                                <select class="form-control" style="width: 80%" id="sex">
-                                    <option value="1">&nbsp;男</option>
-                                    <option value="0">&nbsp;女</option>
-                                    <option value="" disabled>&nbsp;未知?</option>
-                                </select>
-                            </div>
                             <!--房间-->
                             <div class="form-group">
-                                <label style="color: #0f0f0f">房间</label><br>
-                                <input class="form-control" style="width: 80%" disabled id="room"
+                                <label style="color: #0f0f0f">房间:</label><br>
+                                <input class="form-control"  disabled id="room"
                                        th:value="|${room.roomName}  /  ${room.roomLevel}${room.roomType}|">
                             </div>
 
@@ -125,63 +102,86 @@
                             <div class="row">
                                 <div class='col-sm-6'>
                                     <div class="form-group">
-                                        <label style="color: #0C0C0C">选择开始时间：</label>
+                                        <label style="color: #0C0C0C">选择预约开始时间：</label><div class="error" id="bookOnDiv"></div>
                                         <!--指定 date标记-->
                                         <div class='input-group date'>
-                                            <input id='bookOn' type='date' class="form-control" />
+                                            <input id="bookOn" type="date" class="form-control" th:onblur="checkBookOn([[${room.roomId}]])"/>
                                             <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class='col-sm-6'>
-                                    <div class="form-group">
-                                        <label style="color: #0C0C0C">选择时间段：</label>
-                                        <select id="bookOn-time" class="form-control">
-                                            <script>
-                                                var time = [];
-                                                for (var i = 0; i < 24; i++) {
-                                                    var value = i+":00";
-                                                    time[i] = "<option value='"+value+"'>"+"  "+value+"</option>";
-                                                }
-                                                $("#bookOn-time").html(time);
-                                            </script>
-                                        </select>
-                                    </div>
-                                </div>
+                                <!--<div class='col-sm-6'>-->
+                                <!--<div class="form-group">-->
+                                <!--<label style="color: #0C0C0C">选择时间段：</label>-->
+                                <!--<select id="bookOn-time" class="form-control" disabled>-->
+                                <!--<script>-->
+                                <!--var time = [];-->
+                                <!--for (var i = 0; i < 24; i++) {-->
+                                <!--var value = i+":00";-->
+                                <!--time[i] = "<option value='"+value+"'>"+"  "+value+"</option>";-->
+                                <!--}-->
+                                <!--$("#bookOn-time").html(time);-->
+                                <!--</script>-->
+                                <!--</select>-->
+                                <!--</div>-->
+                                <!--</div>-->
                             </div>
-
 
                             <!--预约时间止-->
                             <div class="row">
                                 <div class='col-sm-6'>
                                     <div class="form-group">
-                                        <label style="color: #0C0C0C">选择开始时间：</label>
+                                        <label style="color: #0C0C0C">选择预约结束时间：</label><div class="error" id="bookEndDiv"></div>
                                         <!--指定 date标记-->
                                         <div class='input-group date' >
-                                            <input id='bookEnd' type='date' class="form-control" />
+                                            <input id="bookEnd" type="date" class="form-control" th:onblur="checkBookEnd([[${room.roomId}]])"/>
                                             <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class='col-sm-6'>
-                                    <div class="form-group">
-                                        <label style="color: #0C0C0C">选择时间段：</label>
-                                        <select id="bookEnd-time" class="form-control">
-                                            <script>
-                                                var time = [];
-                                                for (var i = 0; i < 24; i++) {
-                                                    var value = i+":00";
-                                                    time[i] = "<option value='"+value+"'>"+"  "+value+"</option>";
-                                                }
-                                                $("#bookEnd-time").html(time);
-                                            </script>
-                                        </select>
-                                    </div>
-                                </div>
+                                <!--<div class='col-sm-6'>-->
+                                <!--<div class="form-group">-->
+                                <!--<label style="color: #0C0C0C">选择时间段：</label>-->
+                                <!--<select id="bookEnd-time" class="form-control" disabled>-->
+                                <!--<script>-->
+                                <!--var time = [];-->
+                                <!--for (var i = 0; i < 24; i++) {-->
+                                <!--var value = i+":00";-->
+                                <!--time[i] = "<option value='"+value+"'>"+"  "+value+"</option>";-->
+                                <!--}-->
+                                <!--$("#bookEnd-time").html(time);-->
+                                <!--</script>-->
+                                <!--</select>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                            <!--姓名-->
+                            <div class="form-group">
+                                <label for="userName" style="color: #0f0f0f">姓名</label>
+                                <input type="text" class="form-control" id="userName" placeholder="请填写姓名">
+                            </div>
+                            <!--手机号-->
+                            <div class="form-group" >
+                                <label for="phone" style="color: #0f0f0f">手机号</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="请填写手机号">
+                            </div>
+                            <!--身份证-->
+                            <div class="form-group" >
+                                <label for="phone" style="color: #0f0f0f">身份证</label>
+                                <input type="tel" class="form-control" id="idCard" placeholder="请填写身份证">
+                            </div>
+                            <!--性别-->
+                            <div class="form-group">
+                                <label style="color: #0f0f0f">性别</label><br>
+                                <select class="form-control" style="width: 70%" id="sex">
+                                    <option value="1">&nbsp;男</option>
+                                    <option value="0">&nbsp;女</option>
+                                    <option value="" disabled>&nbsp;未知?</option>
+                                </select>
                             </div>
                             <!--备注-->
                             <div class="form-group">
@@ -204,7 +204,6 @@
         </div>
     </div>
 </div>
-
 
 
 </body>

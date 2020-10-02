@@ -1,9 +1,78 @@
+/*服务码框框，用来控制显隐*/
 #serviceCodeDiv{
     display: none;
     padding-top: 5px;
 }
 
+/*交定金--内容样式*/
+.content{
+    padding-left: 5%;
+    font-size: 20px;
+}
 
+/*一些普通的字*/
 .word{
     color: #0f0f0f;
+}
+
+/*“服务码”框--头*/
+#head{
+    height: 50px;
+    padding-left: 2.5%;
+    padding-top: 1.5%;
+}
+/*“服务码”框--内容框*/
+
+#div--{
+    position: relative;
+    background: white;
+    width: 75%;
+    height: 80%;
+    border-radius: 5px;
+    margin: 5% auto;
+}
+
+/*预约成功*/
+#success{
+    font-size: 30px;
+    font-weight: bold;
+    color: green;
+}
+
+/*“服务码”文字*/
+#fuwuma{
+    padding: 3%;
+    font-size: 26px;
+    font-weight: bold;
+    color: #01AAED;
+}
+
+/*服务码serviceCode*/
+#serviceCode{
+    font-size: 32px;
+    font-weight: bolder;
+    color: #FF5722;
+}
+
+/*服务码框下面提示语*/
+#note{
+    padding: 5%;
+}
+
+#v-code{
+    height: 290px;
+    width: 280px;
+    margin: 3% auto;
+    background-color: #8c939d;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    color: #3e8f3e;
+    /*padding: 3%;*/
+}
+
+#my-code{
+    height: 280px;
+    width: 280px;
+    /*margin: 5% auto;*/
 }

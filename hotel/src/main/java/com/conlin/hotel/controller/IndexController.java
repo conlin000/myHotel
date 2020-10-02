@@ -15,7 +15,7 @@ public class IndexController {
     @Resource
     private RoomDao roomDao;
 
-    @GetMapping("/")
+    @GetMapping("/ma-hotel")
     public String index(Model model){
         List<RoomDTO> roomList = roomDao.rooms();
         model.addAttribute("roomList",roomList);
