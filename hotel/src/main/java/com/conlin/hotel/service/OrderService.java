@@ -46,20 +46,27 @@ public class OrderService {
         // 将房间预约时间存入redis
         // 拼接预约时间
         String bookDate = userMsg.getBookTime()+"/"+userMsg.getEndTime();
-        // 将房间预约时间存入redis
-        redisTemplate.opsForHash().put(String.valueOf(userMsg.getRoomId()), "serviceCode:"+userMsg.getServiceCode(), bookDate);
-        // 设置过期时间为 最新的 预约结束时间的后一天
-        redisTemplate.expireAt(String.valueOf(userMsg.getRoomId()),DateUtil.DateForProOrNext("next",userMsg.getEndTime()));
-        // 将用户信息存入redis
-        if (userMsg.getIsVip() == 0){
-            // 普通用户预约
-            String json = JSON.toJSONString(userMsg);
-            redisTemplate.opsForValue().set(userMsg.getServiceCode(),json);
-            // 设置过期时间
-            redisTemplate.expireAt("userServiceCode:"+userMsg.getServiceCode(),DateUtil.DateForProOrNext("next",userMsg.getEndTime()));
-        } else {
-            // VIP插入user表
-            // userDao.insertUser(userMsg);
+        try {
+            // 将房间预约时间存入redis
+            redisTemplate.opsForHash().put(String.valueOf(userMsg.getRoomId()), "serviceCode:"+userMsg.getServiceCode(), bookDate);
+            // 设置过期时间为 最新的 预约结束时间的后一天
+            redisTemplate.expireAt(String.valueOf(userMsg.getRoomId()),DateUtil.DateForProOrNext("next",userMsg.getEndTime()));
+            // 将用户信息存入redis
+            if (userMsg.getIsVip() == 0){
+                // 普通用户预约 以String类型存入Redis
+//            String json = JSON.toJSONString(userMsg);
+//            redisTemplate.opsForValue().set(userMsg.getServiceCode(),json);
+//            // 设置过期时间
+//            redisTemplate.expireAt("userServiceCode:"+userMsg.getServiceCode(),DateUtil.DateForProOrNext("next",userMsg.getEndTime()));
+                // 普通用户预约
+//                String json = JSON.toJSONString(userMsg);
+                redisTemplate.opsForHash().put("user", userMsg.getServiceCode(), userMsg);
+                // 设置过期时间 以Hash类型存入Redis
+                redisTemplate.expireAt("userServiceCode:"+userMsg.getServiceCode(),DateUtil.DateForProOrNext("next",userMsg.getEndTime()));
+
+            }
+        }catch (Exception e){
+            throw e;
         }
 
         // 更新“order”表

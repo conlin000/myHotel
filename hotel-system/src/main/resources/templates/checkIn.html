@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+    <title>麻老弟大酒店管理系统</title>
+
+    <!--引入css样式文件-->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+
+
+    <!--引入js样式-->
+    <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../layui/layui.js"></script>
+    <script type="text/javascript" src="../js/template.js"></script>
+
+    <link rel="stylesheet" href="/myCss/checkIn.css">
+
+</head>
+<body th:inline="text">
+<div class="jumbotron" style="padding-left: 5%; height: 450px">
+    <h1>入住办理：</h1><hr><br>
+    <p>...</p>
+    <br><br>
+    <label class="layui-form-label">服务码</label>
+    <input type="text" id="serviceCodeInput" required  lay-verify="required" placeholder="请输入服务码" autocomplete="off" class="layui-input">
+    <span class="error" id="serviceCodeSpan">wwwwwwww</span>
+    <br><br>
+
+    <label class="layui-form-label">房间号</label>
+    <input type="text" id="roomIdInput" required  lay-verify="required" placeholder="请输入服务码" autocomplete="off" class="layui-input">
+    <span class="error" id="roomIdSpan">wwwwwwww</span>
+
+
+    <br><br><br>
+    <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>-->
+
+    <button class="layui-btn layui-btn-radius layui-btn-lg" id="doCheckIn">办理入住</button>
+</div>
+
+</body>
+</html>

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../layui/css/layui.mobile.css">
 
     <!---->
-    <script type="text/javascript" src="../js/bootstrap.js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <!--<script type="text/javascript" src="../js/npm.js"></script>-->
     <!--<script type="text/javascript" src="../js/layui.js"></script>-->
@@ -28,7 +28,7 @@
 <div class="alert alert-danger" role="alert" id="error">×&nbsp;&nbsp;密码错误或其他清况</div>
 <img src="../img/house.png" height="155" width="210" style="z-index: -1"/>
 <span id="loginSpan">
-    <h2 style="align-content: center">麻老弟大酒店</h2>
+    <h3 style="align-content: center">麻老弟大酒店后台管理系统</h3>
     <form class="form-horizontal" id="login" >
         <div class="form-group">
             <label for="acctount" class="col-sm-2 control-label">账号：</label>
@@ -68,14 +68,15 @@
                         $("#success").css('display','block');
                         setTimeout(function () {
                             $("#success").css('display','none');
-                        },2000);
+                            window.location="/home"
+                        },1500);
+
                     }else{
                         $("#error").css('display','block');
                         setTimeout(function () {
                             $("#error").css('display','none');
                         },2000);
                     }
-                    
                 }
             })
         });

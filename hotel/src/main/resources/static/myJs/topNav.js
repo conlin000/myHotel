@@ -7,8 +7,11 @@
 // });
 
 // 导航栏
-layui.use('element', function(){
-    var element = layui.element;
+$(function () {
+    layui.use('element', function(){
+        var element = layui.element;
 
-    //…
+        //…
+    });
 });
+
