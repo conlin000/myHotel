@@ -29,9 +29,9 @@
     <span class="error" id="serviceCodeSpan">wwwwwwww</span>
     <br><br>
 
-    <label class="layui-form-label">房间号</label>
-    <input type="text" id="roomIdInput" required  lay-verify="required" placeholder="请输入服务码" autocomplete="off" class="layui-input">
-    <span class="error" id="roomIdSpan">wwwwwwww</span>
+    <!--<label class="layui-form-label">房间号</label>-->
+    <!--<input type="text" id="roomIdInput"  lay-verify="required" placeholder="请输入服务码" autocomplete="off" class="layui-input" disabled>-->
+    <!--<span class="error" id="roomIdSpan">wwwwwwww</span>-->
 
 
     <br><br><br>
@@ -40,5 +40,34 @@
     <button class="layui-btn layui-btn-radius layui-btn-lg" id="doCheckIn">办理入住</button>
 </div>
 
+<script>
+    $(function () {
+        $("#serviceCodeInput").click(function () {
+            $("#serviceCodeSpan").html("");
+            $("#serviceCodeSpan").css('display','none');
+        });
+    });
+
+
+    $("#doCheckIn").click(function () {
+        let serviceCode = $("#serviceCodeInput").val().trim();
+        let url = "/doCheckIn/"+serviceCode;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:{'serviceCode':serviceCode},
+            success:function (data) {
+                console.log(data);
+                if (data.code == -1){
+                    $("#serviceCodeSpan").css('display','block');
+                    $("#serviceCodeSpan").html(data.msg);
+                } else {
+                    alert(data.msg);
+                }
+
+            }
+        })
+    });
+</script>
 </body>
 </html>

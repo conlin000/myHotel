@@ -8,6 +8,32 @@ import java.util.Date;
 
 public class DateUtil {
 
+    /**
+     * 获取当前yyyy-MM-dd HH:mm:ss
+     * @return
+     */
+    public static String nowDateTime(){
+       Date dd=new Date();
+       //格式化
+       SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       String time=sim.format(dd);
+       return time;
+   }
+
+    /**
+     * 获取当前yyyy-MM-dd
+     * @return
+     */
+   public static String nowDate(){
+       Date dd=new Date();
+       //格式化
+       SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd");
+       String time=sim.format(dd);
+       return time;
+   }
+
+
+
     /***
      * 日期月份减一个月
      *
