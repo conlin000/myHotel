@@ -34,7 +34,6 @@ public class OrderService {
      */
     @Transactional(rollbackFor = Exception.class)
     public String doBook(UserMsg userMsg){
-
         // 检查预约房间时间段是否合法 (在UserMsgController检验了)
 
         // 生成“临时用户id”
@@ -59,8 +58,8 @@ public class OrderService {
 //            // 设置过期时间
 //            redisTemplate.expireAt("userServiceCode:"+userMsg.getServiceCode(),DateUtil.DateForProOrNext("next",userMsg.getEndTime()));
                 // 普通用户预约
-//                String json = JSON.toJSONString(userMsg);
-                redisTemplate.opsForHash().put("user", userMsg.getServiceCode(), userMsg);
+                String json = JSON.toJSONString(userMsg);
+                redisTemplate.opsForHash().put("user", userMsg.getServiceCode(), json);
                 // 设置过期时间 以Hash类型存入Redis
                 redisTemplate.expireAt("userServiceCode:"+userMsg.getServiceCode(),DateUtil.DateForProOrNext("next",userMsg.getEndTime()));
 
